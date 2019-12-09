@@ -1,16 +1,81 @@
-# flutter_app_beginner
+# 案例
 
-A new Flutter application.
+![Image text](./publicpicture/a2.jpg)
 
-## Getting Started
+#IOS需要进行设置 
+##如下图
+![Image text](./publicpicture/a1.png)
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
+#使用三方库
+image_picker
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+## 下面是调用代码
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+
+class ImagePickerWidget extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return _ImagePickerState();
+  }
+}
+
+class _ImagePickerState extends State<ImagePickerWidget> {
+  var _imgPath;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(
+          title: Text("ImagePicker"),
+        ),
+        body: SingleChildScrollView(
+          child: Column(
+            children: <Widget>[
+              _ImageView(_imgPath),
+              RaisedButton(
+                onPressed: _takePhoto,
+                child: Text("拍照"),
+              ),
+              RaisedButton(
+                onPressed: _openGallery,
+                child: Text("选择照片"),
+              ),
+            ],
+          ),
+        ));
+  }
+
+  /*图片控件*/
+  Widget _ImageView(imgPath) {
+    if (imgPath == null) {
+      return Center(
+        child: Text("请选择图片或拍照"),
+      );
+    } else {
+      return Image.file(
+        imgPath,
+      );
+    }
+  }
+
+
+  /*拍照*/
+  _takePhoto() async {
+    var image = await ImagePicker.pickImage(source: ImageSource.camera);
+
+    setState(() {
+      _imgPath = image;
+    });
+  }
+
+  /*相册*/
+  _openGallery() async {
+    var image = await ImagePicker.pickImage(source: ImageSource.gallery);
+    setState(() {
+      _imgPath = image;
+    });
+  }
+}
