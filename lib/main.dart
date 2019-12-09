@@ -1,23 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app_beginner/pages/camera_page.dart';
 
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    int number = 1;
-    while (100 >= number) {
-      print(number);
-      number++;
-    }
-
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          title: Text("Dart 学习"),
-        ),
+    return Container(
+      child: MaterialApp(
+        home: ImagePickerWidget(),
       ),
     );
   }
 }
+
